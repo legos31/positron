@@ -12,6 +12,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
+        '@uploads' => dirname(__DIR__) . '/web/images',
     ],
     'components' => [
         'cache' => [
@@ -26,6 +27,14 @@ $config = [
             ],
         ],
         'db' => $db,
+
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_item}}',
+            'itemChildTable' => '{{%auth_item_child}}',
+            'assignmentTable' => '{{%auth_assignments}}',
+            'ruleTable' => '{{%auth_rules}}',
+        ],
     ],
     'params' => $params,
     /*
