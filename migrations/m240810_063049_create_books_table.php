@@ -22,17 +22,11 @@ class m240810_063049_create_books_table extends Migration
             'shortDescription' => $this->text(),
             'longDescription' =>  $this->text(),
             'status' => $this->integer(),
-            'author_id' => $this->integer(),
-            'category_id' => $this->integer(),
         ]);
 
         $this->createIndex('{{%idx-books-title}}', '{{%books}}', 'title');
         $this->createIndex('{{%idx-books-isbn}}', '{{%books}}', 'isbn');
         $this->createIndex('{{%idx-books-status}}', '{{%books}}', 'status');
-        $this->createIndex('{{%idx-books-author_id}}', '{{%books}}', 'author_id');
-
-        $this->addForeignKey('{{%fk-books-author_id}}', '{{%books}}', 'author_id', '{{%authors}}', 'id');
-        $this->addForeignKey('{{%fk-books-category_id}}', '{{%books}}', 'category_id', '{{%categories}}', 'id');
     }
 
     /**

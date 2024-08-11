@@ -11,20 +11,17 @@ use Yii;
  * @property string $name
  *
  * @property Books[] $books
+ * @property BooksAuthorsAssign[] $booksAuthorsAssigns
  */
 class Authors extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'authors';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
@@ -33,9 +30,7 @@ class Authors extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return [
@@ -44,13 +39,22 @@ class Authors extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Books]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    public static function create($name): self
+    {
+        $model = new static();
+        $model->name = $name;
+        return $model;
+    }
+
+
     public function getBooks()
     {
-        return $this->hasMany(Books::class, ['author_id' => 'id']);
+        return $this->hasMany(Books::class, ['id' => 'book_id'])->viaTable('books_authors_assign', ['author_id' => 'id']);
+    }
+
+
+    public function getBooksAuthorsAssigns()
+    {
+        return $this->hasMany(BooksAuthorsAssign::class, ['author_id' => 'id']);
     }
 }

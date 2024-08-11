@@ -25,12 +25,7 @@ class ParsingController extends Controller
         foreach ($booksJson as $bookJson) {
             $bookForm->load($bookJson, '');
             echo 'Parsing book isbn - ' . $bookForm->isbn. PHP_EOL;
-            $this->manager->add($bookForm);
-            try {
-                $this->manager->save($bookForm);
-            } catch (\Exception $exception) {
-                $this->stdout('Error saving book '. $bookForm->isbn);
-            }
+            $this->manager->parse($bookForm);
         }
     }
 }

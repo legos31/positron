@@ -41,7 +41,7 @@ use yii\helpers\Url;
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Contacts', 'icon' => 'dot-circle', 'url' => Url::to(['contact/index'])],
-                    ['label' => 'Books', 'icon' => 'dot-circle'],
+                    ['label' => 'Books', 'icon' => 'dot-circle', 'url' => Url::to(['book/index'])],
                     ['label' => 'Yii2 PROVIDED', 'header' => true],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],

@@ -15,7 +15,11 @@ class m240810_062430_create_categories_table extends Migration
         $this->createTable('{{%categories}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'parent_id' => $this->integer()->defaultValue(null),
+            'parent_id' => $this->integer(),
+        ]);
+
+        $this->batchInsert('{{%categories}}', ['name'], [
+            ['Новинки'],
         ]);
     }
 

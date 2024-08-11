@@ -15,13 +15,11 @@ class BookForm extends Model
     public $title;
     public $isbn;
     public $pageCount;
-//    public $publishedDate;
-    //public $thumbnailUrl;
     public $shortDescription;
     public $longDescription;
     public $status;
-    public $author_id;
-    public $category_id;
+    public $authors;
+    public $categories;
 
 
 
@@ -29,7 +27,7 @@ class BookForm extends Model
     {
         return [
             [['title', 'isbn'], 'required'],
-            [['title', 'isbn','pageCount', 'publishedDate', 'status', 'author_id', 'category_id', 'longDescription', 'thumbnailUrl', 'shortDescription'], 'string'],
+            [['title', 'isbn','pageCount', 'publishedDate', 'status', 'authors', 'categories', 'longDescription', 'thumbnailUrl', 'shortDescription'], 'string'],
         ];
     }
 
