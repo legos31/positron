@@ -35,7 +35,7 @@ class Variations extends \yii\db\ActiveRecord
         return [
             [['category_id', 'active'], 'required'],
             [['category_id', 'active'], 'integer'],
-            [[ '_articles'], 'safe'],
+            [[ '_articles', '_props'], 'safe'],
         ];
     }
 
@@ -72,19 +72,22 @@ class Variations extends \yii\db\ActiveRecord
         }
 
         if ((is_array($this->_articles)) && (count($this->_articles) > 0)) {
-            foreach ($this->_articles as $key=>$id) {
-                $variationItem = new VariationItems ();
-                $variationItem->variation_id = $this->id;
-                $variationItem->product_id = $id;
-                $variationItem->props_id = rand(1, 4);
-                $variationItem->props_name = 'Test name';
-                $variationItem->save();
+            foreach ($this->_articles as $key=>$articleId) {
+                foreach ($this->_props as $key => $propId) {
+                    $variationItem = new VariationItems ();
+                    $variationItem->variation_id = $this->id;
+                    $variationItem->product_id = $articleId;
+                    $variationItem->props_id = $propId;
+                    $variationItem->props_name = ProductTypesProps::findOne($propId)->name;
+                    $variationItem->save();
+                }
             }
         }
     }
 
     public function afterFind() {
         $this->_articles = $this->productsArticle;
+        $this->_props = $this->productsProps;
     }
 
     public function getProducts()
@@ -95,6 +98,18 @@ class Variations extends \yii\db\ActiveRecord
     public function getProductsArticle()
     {
         $query = $this->getProducts();
-        return ArrayHelper::map($query->all(), 'id', 'id');
+        return ArrayHelper::getColumn($query->all(), 'id');
+    }
+
+
+    public function getVariationsItems()
+    {
+        return $this->hasMany(VariationItems::class, ['variation_id' => 'id']);
+    }
+
+    public function getProductsProps()
+    {
+        $query = $this->getVariationsItems();
+        return ArrayHelper::map($query->all(), 'props_id', 'props_id');
     }
 }

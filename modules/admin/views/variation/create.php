@@ -50,23 +50,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
 
-        $model->_props =  ['red', 'green']; // initial value
-
         echo $form->field($model, '_props')->widget(Select2::classname(), [
             //'data' => $data,
             'options' => ['placeholder' => 'Выберите аттрибуты товаров ...', 'multiple' => true],
             'pluginOptions' => [
                 'tags' => true,
-                'tokenSeparators' => [':', ' '],
-                'maximumInputLength' => 10
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 100
             ],
         ])->label('Tag Multiple');
-
-//        echo $form->field($model, '_props')->dropDownList([
-//                1 => 'list',
-//                2 => 'gost'
-//        ], ['multiple'=>'multiple',
-//            'class'=>'chosen-select input-md required']);
 
         ?>
 

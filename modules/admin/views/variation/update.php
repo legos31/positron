@@ -1,5 +1,6 @@
 <?php
 
+use app\models\variations\ProductTypesProps;
 use app\models\variations\VariationItems;
 use app\models\variations\Variations;
 use kartik\select2\Select2;
@@ -32,10 +33,10 @@ $this->params['breadcrumbs'][] = 'Update';
         <?= $form->field($model, 'category_id')->textInput() ?>
         <?php
             $url = Url::to(['variation/get-article']);
+            //dd($model->_articles, ArrayHelper::map($model->products, 'id', 'gcode'),);
         ?>
 
         <?php
-
         echo $form->field($model, '_articles')->widget(Select2::classname(), [
             'data' =>  ArrayHelper::map($model->products, 'id', 'gcode'),
             'options' => ['multiple'=>true, 'placeholder' => 'Search...'],
@@ -55,6 +56,16 @@ $this->params['breadcrumbs'][] = 'Update';
                 'templateSelection' => new JsExpression('function (gcode) { return gcode.text; }'),
             ],
         ]);
+
+        echo $form->field($model, '_props')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(ProductTypesProps::find()->all(), 'id', 'name'),
+            'options' => ['placeholder' => 'Выберите аттрибуты товаров ...', 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'tokenSeparators' => [',', ' '],
+                'maximumInputLength' => 100
+            ],
+        ])->label('Tag Multiple');
 
         ?>
 
